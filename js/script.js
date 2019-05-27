@@ -62,11 +62,22 @@ const showPage = (list, page) => {
    functionality to the pagination buttons.
 ***/
 const appendPageLinks = (list) => {
+   
+
    //calculate numPages required for number of records.
    let numPages = Math.ceil(list.length / studentsPerPage)
-   //create div that holds pages
+   //create div that holds pages and add the class
    const paginationDiv = document.createElement('div');
+   paginationDiv.className = 'pagination';
+   //create ul to hold the buttons
+   const pageButtonsUL  = document.createElement('ul');
 
+
+
+
+   paginationDiv.appendChild(pageButtonsUL);
+   paginationDiv.appendAfter()
+   
 }
 
 showPage(list,1);
