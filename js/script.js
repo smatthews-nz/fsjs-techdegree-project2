@@ -14,7 +14,6 @@ const list = document.querySelectorAll('li');
 /*** 
    Add your global variables that store the DOM elements you will 
    need to reference and/or manipulate. 
-   
    But be mindful of which variables should be global and which 
    should be locally scoped to one of the two main functions you're 
    going to create. A good general rule of thumb is if the variable 
@@ -63,12 +62,14 @@ const showPage = (list, page) => {
 ***/
 const appendPageLinks = (list) => {
    //select page element so that the div we create can be appended to the page.
-   const page = document.querySelector('page');
+   const page = document.querySelector('.page');
+   console.log(page);
    //calculate numPages required for number of records.
-   let numPages = Math.ceil(list.length / studentsPerPage)
+   const numPages = Math.ceil(list.length / studentsPerPage)
    //create div that holds pages and add the class
    const paginationDiv = document.createElement('div');
    paginationDiv.className = 'pagination';
+   page.appendChild(paginationDiv);
    //create ul to hold the buttons
    const pageButtonsUL  = document.createElement('ul');
 
@@ -76,15 +77,14 @@ const appendPageLinks = (list) => {
    for(let i = 0; i < numPages; i++){
       let li = document.createElement('li');
       let anchor = document.createElement('a');
-      anchor.textContent = i;
+      anchor.textContent = i + 1;
       anchor.href = "#";
       li.appendChild(anchor);
       pageButtonsUL.appendChild(li);
    }
 
-
    paginationDiv.appendChild(pageButtonsUL);
-   page.appendChild(paginationDiv);
+   
 }
 
 showPage(list,1);
