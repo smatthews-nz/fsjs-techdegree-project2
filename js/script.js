@@ -84,16 +84,23 @@
          pageButtonsUL.appendChild(li);
       }
 
-
       paginationDiv.appendChild(pageButtonsUL);
 
       const pageButtons = document.querySelectorAll('a');
-
+      pageButtons[0].classList.add("active");
       //for loop to add event listeners
       for (let i = 0; i < pageButtons.length; i++){
          pageButtons[i].addEventListener('click', (e) => {
+            const button = e.target;
             showPage(list, pageButtons[i].textContent);
+            //when a button is clicked, remove all active classes
+            for (let j = 0; j < pageButtons.length; j++) {
+               pageButtons[j].className = "";
+            }
+            //set the clicked button to active class
+            button.className = "active";
          });
+
       }
       
    }
