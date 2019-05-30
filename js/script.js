@@ -125,31 +125,48 @@
          console.log("Keyup listener active");
       });
    };
-
+//declare search function
    const searchName = (searchInput, names) => {
-      
-      console.log(searchInput);
-      for(let i = 0; i < names.length; i++){
-         names[i].style.display = "block";
-         
-        if(searchInput.value.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())){
-         names[i].style.display = "block"; 
-         
+
+         //select page element
+         const page = document.querySelector('.page');
+         //select pagination div
+         const paginationDiv = document.querySelector('.paginationDiv');
+         //remove original pagination
+         page.removeChild(paginationDiv);
+         //check if name is pressent
+         if(searchInput.value.length !== 0){
+            //create searchResults array to store returned names.
+            let searchResults = [];
+            for(let i = 0; i < names.length; i++){
+               if(names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())){
+                   //store the searched name in the array
+                  searchResults.add(names[i]);
+                  searchResults[k].style.display = "block";
+            } else {
+               names[i].style.display = "none";
+               }
+            }
          } else {
-            names[i].style.display = "none"; 
+            //reset search
+            for(let j = 0; j < names.length; j++){
+               names[j].style.display = "block"; 
+               }
          }
 
-         if(searchInput.value.length === 0){
+         //check which pagination is applied
+         if(searchResults > 0){
+            showPage(searchResults,1);
+            appendPageLinks(searchResults);
+         } else {
             showPage(list, 1);
-          }
-         
-       }
+            appendPageLinks(list);
+         }
 
-       
-   }
+      }
+      showPage(list, 1);
+      appendPageLinks(list);
 
-   showPage(list, 1);
-   appendPageLinks(list);
    appendSearchItems();
 
    // Remember to delete the comments that came with this file, and replace them with your own code comments.
