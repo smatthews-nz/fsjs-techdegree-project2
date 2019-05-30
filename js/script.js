@@ -12,19 +12,6 @@
    const list = document.querySelectorAll('li');
 
    /*** 
-      Add your global variables that store the DOM elements you will 
-      need to reference and/or manipulate. 
-      But be mindful of which variables should be global and which 
-      should be locally scoped to one of the two main functions you're 
-      going to create. A good general rule of thumb is if the variable 
-      will only be used inside of a function, then it can be locally 
-      scoped to that function.
-   ***/
-   console.log(list);
-
-
-
-   /*** 
       Create the `showPage` function to hide all of the items in the 
       list except for the ten you want to show.
 
@@ -54,8 +41,6 @@
 
    }
 
-
-
    /*** 
       Create the `appendPageLinks function` to generate, append, and add 
       functionality to the pagination buttons.
@@ -83,30 +68,89 @@
          li.appendChild(anchor);
          pageButtonsUL.appendChild(li);
       }
-
+      //add buttons to the pagination div
       paginationDiv.appendChild(pageButtonsUL);
-
+      //select the buttons
       const pageButtons = document.querySelectorAll('a');
+      //set the first button to class of active
       pageButtons[0].classList.add("active");
       //for loop to add event listeners
       for (let i = 0; i < pageButtons.length; i++){
          pageButtons[i].addEventListener('click', (e) => {
+            //select the active button
             const button = e.target;
-            showPage(list, pageButtons[i].textContent);
             //when a button is clicked, remove all active classes
             for (let j = 0; j < pageButtons.length; j++) {
                pageButtons[j].className = "";
             }
             //set the clicked button to active class
             button.className = "active";
+            //call the function based upon which button is pressed
+            showPage(list, button.textContent);
          });
 
       }
       
    }
 
-   showPage(list,1);
+   //append the search input and button to the dom
+   const appendSearchItems = () => {
+      //select page header div to append search input and buttons
+      const pageHeader = document.querySelector('.page-header');
+      //create a div to hold search elements and set class name
+      const searchDiv = document.createElement('div');
+      searchDiv.className = "student-search";
+      //create an input box and set type
+      const searchInput = document.createElement('input');
+      searchInput.type = "text";
+      //append input to search div
+      searchDiv.appendChild(searchInput);
+      //create search button
+      const searchButton = document.createElement('button');
+      searchButton.textContent = "Search";
+      //append search button to search div
+      searchDiv.appendChild(searchButton);
+      //append div to the pageHeader
+      pageHeader.appendChild(searchDiv);
+
+      //add submit event listener to the search button
+      searchButton.addEventListener('submit', (e) => {
+         e.preventDefault();
+         searchName(searchInput, list);
+         console.log("Search button active");
+      });
+      //add keyup event listener
+      searchInput.addEventListener('keyup', () => {
+         searchName(searchInput, list);
+         console.log("Keyup listener active");
+      });
+   };
+
+   const searchName = (searchInput, names) => {
+      
+      console.log(searchInput);
+      for(let i = 0; i < names.length; i++){
+         names[i].style.display = "block";
+         
+        if(searchInput.value.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())){
+         names[i].style.display = "block"; 
+         
+         } else {
+            names[i].style.display = "none"; 
+         }
+
+         if(searchInput.value.length === 0){
+            showPage(list, 1);
+          }
+         
+       }
+
+       
+   }
+
+   showPage(list, 1);
    appendPageLinks(list);
+   appendSearchItems();
 
    // Remember to delete the comments that came with this file, and replace them with your own code comments.
    });
