@@ -48,7 +48,6 @@
    const appendPageLinks = (list) => {
       //select page element so that the div we create can be appended to the page.
       const page = document.querySelector('.page');
-      console.log(page);
       //calculate numPages required for number of records.
       const numPages = Math.ceil(list.length / studentsPerPage)
       //create div that holds pages and add the class
@@ -127,11 +126,10 @@
    };
 //declare search function
    const searchName = (searchInput, names) => {
-
-         //select page element
          const page = document.querySelector('.page');
-         //select pagination div
-         const paginationDiv = document.querySelector('.paginationDiv');
+         //select page element
+         const paginationDiv = document.querySelector('.pagination');
+         console.log(paginationDiv);
          //remove original pagination
          page.removeChild(paginationDiv);
          //check if name is pressent
