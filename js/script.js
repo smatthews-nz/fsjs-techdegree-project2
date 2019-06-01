@@ -126,42 +126,72 @@
    };
 //declare search function
    const searchName = (searchInput, names) => {
+         console.log("searchName fired");
           //select page element
          const page = document.querySelector('.page');
          //select original pagination 
          const paginationDiv = document.querySelector('.pagination');
          console.log(paginationDiv);
          //remove original pagination
-         page.removeChild(paginationDiv)
-         //check if name is pressent
-         if(searchInput.value.length !== 0){
-            //create searchResults array to store returned names.
+         page.removeChild(paginationDiv);
+         console.log(searchInput.value.length);
+       
+         //if else to check if search value is present
+         if(searchInput.value.length > 0){
+            //create array to store results
             let searchResults = [];
             for(let i = 0; i < names.length; i++){
-               if(names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())){
-                   //store the searched name in the array
+               if (names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())){
+                  names[i].style.display = "block";
                   searchResults.push(names[i]);
-                  searchResults[i].style.display = "block";
-            } else {
-               names[i].style.display = "none";
+
+               } else {
+                  names[i].style.display = "none";
                }
+
             }
 
-            //check which pagination is to be applied applied
-            if(searchResults.length > 0){
-               showPage(searchResults,1);
+            //if search present, and no results found
+            if (searchInput.value.length !== 0 && searchResults.length === 0) {
+               console.log(searchResults.length);
+               console.log("No results found");
+               
+               //set all names items to hidden
+               for(let j = 0; j < names.length; j++){
+                  console.log("For loop has run");
+                  names[j].style.visibility = "hidden";
+               }
+               const studentList = document.querySelector('.student-list');
+               const li = document.createElement('li');
+               li.className = "no-results";
+               const h3 = document.createElement('h3');
+               h3.textContent = "No results found!";
+               li.append(h3);
+               studentList.appendChild(li);
+               li.style.display = "visible";
+               
+            }
+
+            //check which pagination to apply
+            if (searchResults.length > 0) {
+               showPage(searchResults, 1);
                appendPageLinks(searchResults);
             } else {
                showPage(list, 1);
                appendPageLinks(list);
             }
-   
+
+
          } else {
-            //reset search
-            for(let j = 0; j < names.length; j++){
-               names[j].style.display = "block"; 
-               }
+            for(let k = 0; k < names.length; k++){
+               names[k].style.visibility = "";
+               names[k].style.display = "block";
+            }
+            showPage(list, 1);
+            appendPageLinks(list);
          }
+
+
 
          
          
