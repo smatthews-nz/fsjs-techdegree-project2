@@ -166,12 +166,12 @@
                li.className = "no-results";
                const h3 = document.createElement('h3');
                h3.textContent = "No results found!";
-               li.append(h3);
-               studentList.appendChild(li);
+               li.prepend(h3);
+               studentList.prepend(li);
                li.style.display = "visible";
                
-            }
 
+            }
             //check which pagination to apply
             if (searchResults.length > 0) {
                showPage(searchResults, 1);
@@ -183,19 +183,16 @@
 
 
          } else {
-            for(let k = 0; k < names.length; k++){
-               names[k].style.visibility = "";
-               names[k].style.display = "block";
+            for(let l = 0; l < names.length; l++){
+               names[l].style.visibility = "";
+               names[l].style.display = "block";
             }
             showPage(list, 1);
             appendPageLinks(list);
-         }
-
-
-
-         
-         
+         } 
       }
+
+
       showPage(list, 1);
       appendPageLinks(list);
 
