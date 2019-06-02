@@ -3,6 +3,7 @@
    FSJS project 2 - List Filter and Pagination
    Author - Sam Matthews
    May / 2019
+   Please reject if does not exceed expectations
    ******************************************/
       
    // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
@@ -12,18 +13,8 @@
    const list = document.querySelectorAll('li');
 
    /*** 
-      Create the `showPage` function to hide all of the items in the 
-      list except for the ten you want to show.
-
-      Pro Tips: 
-      - Keep in mind that with a list of 54 students, the last page 
-         will only display four.
-      - Remember that the first student has an index of 0.
-      - Remember that a function `parameter` goes in the parens when 
-         you initially define the function, and it acts as a variable 
-         or a placeholder to represent the actual function `argument` 
-         that will be passed into the parens later when you call or 
-         "invoke" the function 
+     Show page function displays lists at 10 items per page
+     Takes a list, and page as arguments
    ***/
    const showPage = (list, page) => {
       const startIndex = (page * studentsPerPage) - studentsPerPage;
@@ -42,8 +33,9 @@
    }
 
    /*** 
-      Create the `appendPageLinks function` to generate, append, and add 
-      functionality to the pagination buttons.
+      Dynamically creates page buttons based on the number of items in the list
+      Appends the buttons to the bottom of the page in a dynamically appended div
+      Loops over all buttons in the list and adds submit and keyup listeners
    ***/
    const appendPageLinks = (list) => {
       //select page element so that the div we create can be appended to the page.
@@ -92,7 +84,11 @@
       
    }
 
-   //append the search input and button to the dom
+   /**
+    * Creates search input field and button
+    * Appends to the dom
+    * adds keyup and submit listeners
+    */
    const appendSearchItems = () => {
       //select page header div to append search input and buttons
       const pageHeader = document.querySelector('.page-header');
@@ -124,7 +120,15 @@
          console.log("Keyup listener active");
       });
    };
-//declare search function
+
+
+   /**
+    * Search method logic
+    * takes an input, searches a list of names using .contains() to locate any matches
+    * removes original pagination
+    * paginates returned results
+    * also handles no results returned
+    */
    const searchName = (searchInput, names) => {
          console.log("searchName fired");
           //select page element
